@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Data.Common;
 using UnityEngine;
 
 namespace FarTrader.Authentication 
@@ -9,37 +10,39 @@ namespace FarTrader.Authentication
     [SerializeField] ServerInfo server ;
     [SerializeField] AuthEndpoints endpoints ;
 
-    public IEnumerator Login(string email, string passkey, Action<LoginResponse> onResult)
+    public IEnumerator Login(string email, string password, Action<LoginResponse> onResult)
     {
-      Debug.Log( endpoints.login ) ; // GET
       yield return null ;
       onResult?.Invoke(default) ;
+      throw new NotImplementedException( $"GET {endpoints.login}" ) ;
     }
 
-    public IEnumerator Extend(string token, Action<ExtendResponse> onResult)
+    public IEnumerator Extend(int id, string token, Action<ExtendResponse> onResult)
     {
-      Debug.Log( endpoints.extend ) ; // PUT
       yield return null ;
       onResult?.Invoke(default) ;
+      throw new NotImplementedException( $"PUT {endpoints.extend}" ) ;
     }
 
-    public IEnumerator Logout(string token, Action<LogoutResponse> onResult)
+    public IEnumerator Logout(int id, string token, Action<LogoutResponse> onResult)
     {
-      Debug.Log( endpoints.logout ) ; // DELETE
       yield return null ;
       onResult?.Invoke(default) ;
+      throw new NotImplementedException( $"DELETE {endpoints.logout}" ) ;
     }
 
-    public IEnumerator Register(string email, string passkey)
+    public IEnumerator Register(string username, string email, string password, string confirmPassword, Action<object> onResult)
     {
-      Debug.Log( endpoints.register ) ; // POST
       yield return null ;
+      onResult?.Invoke(default) ;
+      throw new NotImplementedException( $"POST {endpoints.register}" ) ;
     }
 
-    public IEnumerator UnRegister(string email, string passkey)
+    public IEnumerator UnRegister(int id, string token, Action<object> onResult)
     {
-      Debug.Log( endpoints.unregister ) ; // DELETE
       yield return null ;
+      onResult?.Invoke(default) ;
+      throw new NotImplementedException( $"DELETE {endpoints.unregister}" ) ;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -61,7 +64,7 @@ namespace FarTrader.Authentication
       public string extend = "/auth/{id}" ;
       public string logout = "/auth/{id}" ;
       public string register = "/user" ;
-      public string unregister = "/user" ;
+      public string unregister = "/user/{id}" ;
     }
   }
 }
