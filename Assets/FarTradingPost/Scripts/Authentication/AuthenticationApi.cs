@@ -7,9 +7,13 @@ namespace FarTrader.Authentication
 {
   public class AuthenticationApi : MonoBehaviour
   {
+#region Unity Editor
     [SerializeField] ServerInfo server ;
     [SerializeField] AuthEndpoints endpoints ;
+#endregion
 
+
+#region API Actions
     public IEnumerator Login(string email, string password, Action<LoginResponse> onResult)
     {
       yield return null ;
@@ -44,6 +48,7 @@ namespace FarTrader.Authentication
       onResult?.Invoke(default) ;
       throw new NotImplementedException( $"DELETE {endpoints.unregister}" ) ;
     }
+#endregion
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,6 +62,7 @@ namespace FarTrader.Authentication
       
     }
 
+#region Serializables
     [Serializable]
     private class AuthEndpoints
     {
@@ -66,5 +72,6 @@ namespace FarTrader.Authentication
       public string register = "/user" ;
       public string unregister = "/user/{id}" ;
     }
+#endregion
   }
 }

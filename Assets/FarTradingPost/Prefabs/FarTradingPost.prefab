@@ -3727,6 +3727,7 @@ GameObject:
   - component: {fileID: 8288386831494486089}
   - component: {fileID: 8405226224467811101}
   - component: {fileID: 80529045963864762}
+  - component: {fileID: 5218842053194201483}
   m_Layer: 5
   m_Name: Api
   m_TagString: Untagged
@@ -3792,6 +3793,27 @@ MonoBehaviour:
     registrationScreen: {fileID: 7556990502601434251}
     overviewScreen: {fileID: 163386464857758191}
     inventoryScreen: {fileID: 7419446524804963388}
+--- !u!114 &5218842053194201483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4545252342222505315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e993abb83ab2b4aa6e9420375090bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarTrader.Marketplace.MarketplaceApi
+  server:
+    Host: localhost
+    Port: 4141
+  inventoryEndpoints:
+    list: /inventory/{id}
+    give: /inventory/{id}
+    edit: /inventory/{id}
+    transfer: /inventory/{id}/{target_id}
+    remove: /inventory/{id}
 --- !u!1 &4820903857656161471
 GameObject:
   m_ObjectHideFlags: 0
