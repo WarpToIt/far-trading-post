@@ -1,0 +1,17 @@
+{
+  "name": "market",
+  "version": "1.0.0",
+  "description": "far-trader market server",
+  "license": "ISC",
+  "author": "Maria Lindling",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-validator": "^7.3.1",
+    "mysql2": "^3.19.1"
+  }
+}
