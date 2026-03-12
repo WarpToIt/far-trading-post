@@ -97,3 +97,7 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Node modules
+/[Aa]ssets/FarTradingPost/Servers/Node/Auth/node_modules/*
+/[Aa]ssets/FarTradingPost/Servers/Node/Market/node_modules/*
