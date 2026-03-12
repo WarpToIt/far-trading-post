@@ -6,9 +6,9 @@ import { asyncMiddleware } from '../../Util/asyncMiddleware.js';
 
 const register = ( app ) => {
   app.post( "/user",
-    body('username').notEmpty().isString(),
-    body('email').notEmpty().isEmail(),
-    body('passkey').notEmpty().isString(),
+    body('username').notEmpty().isString().withMessage("invalid username (must be string)"),
+    body('email').notEmpty().isEmail().withMessage("invalid email (must be e-mail string)"),
+    body('passkey').notEmpty().isString().withMessage("invalid passkey (must be string)"),
     asyncMiddleware( async (request,response,next) => {
       /** Query Validation */
       const result = validationResult(request) ;

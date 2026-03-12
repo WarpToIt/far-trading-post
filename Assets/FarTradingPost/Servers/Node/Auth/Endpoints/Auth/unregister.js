@@ -5,10 +5,10 @@ import { asyncMiddleware } from '../../Util/asyncMiddleware.js';
 
 
 const register = ( app ) => {
-  app.delete( "/user/:id",
-    param('id').notEmpty().isInt().toInt(),
-    body('passkey').notEmpty().isString(),
-    body('token').notEmpty().isString(),
+  app.delete( "/user/:id/:token",
+    param('id').notEmpty().isInt().toInt().withMessage("invalid id (must be integer)"),
+    param('token').notEmpty().isString().withMessage("invalid token (must be string)"),
+    body('passkey').notEmpty().isString().withMessage("invalid passkey (must be string)"),
     asyncMiddleware( async (request,response,next) => {
       /** Query Validation */
       const result = validationResult(request) ;
