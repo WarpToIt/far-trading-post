@@ -1,13 +1,12 @@
-// module "login.js"
+// module "salt.js"
 "use strict" ;
-import { param, body, validationResult } from 'express-validator' ;
+import { body, validationResult } from 'express-validator' ;
 import { asyncMiddleware } from '../../Util/asyncMiddleware.js';
 
 
 const register = ( app ) => {
-  app.get( "/auth/:id",
-    param('id').notEmpty().isInt().toInt().withMessage("invalid id (must be integer)"),
-    body('passkey').notEmpty().isString().withMessage("invalid passkey (must be string)"),
+  app.get( "/salt",
+    body('email').notEmpty().isEmail().withMessage("invalid email (must be e-mail string)"),
     asyncMiddleware( async (request,response,next) => {
       /** Query Validation */
       const result = validationResult(request) ;
@@ -18,9 +17,8 @@ const register = ( app ) => {
       /** End */
 
       let resBody = {
-        "username": "Amy Sally",
-        "token": "gfd8923hf0dsjf2ßjdfsa934tfg9tzdh8iseruwgo",
-        "expires_at": "2026-03-05T00:00:00Z",
+        "id": "123456",
+        "salt": "ghsdvl04e9tcuw34sfdsgd",
         "errors": [ ]
       } ;
 
@@ -30,4 +28,4 @@ const register = ( app ) => {
   } ) ) ;
 }
 
-export { register as registerLogin } ;
+export { register as registerSalt } ;

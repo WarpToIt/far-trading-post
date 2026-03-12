@@ -7,30 +7,28 @@ using Unity.VisualScripting;
 
 namespace FarTrader.Authentication
 {
-  public class LoginResponse
+  public class SaltResponse
   {
-    private RawLoginResponse _response ;
+    private RawSaltResponse _response ;
 
 #region Properties
     public bool OK => _response.errors.Length == 0 ;
-    public string UserName => _response.username ;
-    public string Token => _response.token ;
-    public DateTime ExpiresAt => DateTime.Parse( _response.expires_at ) ;
+    public int Id => _response.id ;
+    public string Salt => _response.salt ;
     public List<string> Errors => _response.errors.ToList() ;
 #endregion
 
-    internal LoginResponse( RawLoginResponse response )
+    internal SaltResponse( RawSaltResponse response )
     {
       _response = response ;
     }
 
 #region Serializables
     [Serializable]
-    internal class RawLoginResponse
+    internal class RawSaltResponse
     {
-      public string username ;
-      public string token ;
-      public string expires_at ;
+      public int id ;
+      public string salt ;
       public string[] errors ;
     }
 #endregion
