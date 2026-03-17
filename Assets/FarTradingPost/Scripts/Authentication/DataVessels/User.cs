@@ -16,5 +16,16 @@ namespace FarTrader.Authentication
 #region Derived Properties
     public bool IsLoggedIn => Token != null && Token.ExpiresAt > DateTime.Now ;
 #endregion
+
+
+#region Methods
+    internal void Clear()
+    {
+      Id    = -1 ;
+      Name  = string.Empty ;
+      Email = string.Empty ;
+      Token = null ;
+    }
+#endregion
   }
 }

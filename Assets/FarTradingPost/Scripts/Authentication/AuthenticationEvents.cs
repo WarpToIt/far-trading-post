@@ -8,12 +8,14 @@ namespace FarTrader.Authentication
     private static AuthenticationEvents _instance ;
 
 #region Unity Editor
-    [SerializeField] private UnityEvent userAuthenticated ;
+    [SerializeField] private UnityEvent<User> userAuthenticated ;
+    [SerializeField] private UnityEvent<User> userLoggedOut ;
 #endregion
 
 
 #region Static Properties
-    public static UnityEvent UserAuthenticated => _instance.userAuthenticated ;
+    public static UnityEvent<User> UserAuthenticated => _instance.userAuthenticated ;
+    public static UnityEvent<User> UserLoggedOut => _instance.userLoggedOut ;
 #endregion
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

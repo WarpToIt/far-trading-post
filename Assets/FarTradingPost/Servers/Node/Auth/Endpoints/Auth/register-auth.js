@@ -9,14 +9,14 @@ import { registerLogout } from './logout.js' ;
 import { registerRegister   } from './register.js' ;
 import { registerUnRegister } from './unregister.js' ;
 
-const register = ( app ) => {
-  registerSalt( app ) ;
-  registerLogin( app ) ;
-  registerExtend( app ) ;
-  registerLogout( app ) ;
+const register = ( app, conn ) => {
+  registerSalt( app, conn ) ;
+  registerLogin( app, conn ) ;
+  registerExtend( app, conn ) ;
+  registerLogout( app, conn ) ;
 
-  registerRegister( app ) ;
-  registerUnRegister( app ) ;
+  registerRegister( app, conn ) ;
+  registerUnRegister( app, conn ) ;
 }
 
 export { register as registerAuth } ;

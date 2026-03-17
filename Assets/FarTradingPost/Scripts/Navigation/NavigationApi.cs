@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,6 +18,16 @@ namespace FarTrader.Navigation
     public NavigableScreen Registration => navigableScreens.registrationScreen ;
     public NavigableScreen Overview => navigableScreens.overviewScreen ;
     public NavigableScreen Inventory => navigableScreens.inventoryScreen ;
+    public List<NavigableScreen> All => new() ;
+#endregion
+
+
+#region Event Handlers
+    public void OnTriggerReturnToLogin()
+    {
+      All.ForEach( (screen) => { screen.Close() ; } ) ;
+      Login.Open() ;
+    }
 #endregion
 
 
@@ -31,9 +42,15 @@ namespace FarTrader.Navigation
     }
 #endregion
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+      All.Add( Login ) ;
+      All.Add( Registration ) ;
+      All.Add( Overview ) ;
+      All.Add( Inventory ) ;
+
       if( initialScreen != null )
       {
         initialScreen.Show() ;

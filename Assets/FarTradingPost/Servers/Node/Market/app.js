@@ -3,6 +3,9 @@
 const LOCALHOST = "127.0.0.1" ;
 const LOCALPORT = 4343 ;
 
+const DB_MARKET_NAME = 'far-trader' ;
+const DB_MARKET_USER = 'root' ;
+
 
 /*************************/
 /****** BASIC SETUP ******/
@@ -16,6 +19,18 @@ var app = express() ;
 var server = http.createServer(app) ;
 
 app.use( express.json() ) ;
+
+/*************************/
+/******* SQL SETUP *******/
+/*************************/
+
+import mysql from 'mysql2/promise';
+
+const conn = await mysql.createConnection({
+  host: LOCALHOST,
+  user: DB_MARKET_USER,
+  database: DB_MARKET_NAME,
+});
 
 /*************************/
 /******* ENDPOINTS *******/
