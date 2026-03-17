@@ -17,14 +17,14 @@ namespace FarTrader.Request
 
     private IEnumerator SendHttpRequest( RequestType requestType, string uri, string[] uriParams, byte[] data, Action<string> onResult )
     {
+
       /** Construct URI */
-      
       if( _paramPattern.Matches(uri).Count != uriParams.Length )
         throw new ArgumentException( $"A {requestType}-request to URI \"{uri}\" takes {_paramPattern.Matches(uri).Count} parameters, but {uriParams.Length} were given.") ;
 
       for( int i = 0; i < uriParams.Length; i++)
       {
-        uri = _paramPattern.Replace(uri,uriParams[i]) ;
+        uri = _paramPattern.Replace(uri,uriParams[i],1) ;
       }
       /** End */
 
