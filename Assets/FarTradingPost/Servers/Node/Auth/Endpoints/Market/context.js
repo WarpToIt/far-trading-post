@@ -1,18 +1,14 @@
-// module "edit.js"
+// module "context.js"
 "use strict" ;
-import { param, body, validationResult } from 'express-validator' ;
+import { param, validationResult } from 'express-validator' ;
 import { default as fetch } from 'node-fetch' ;
 import { asyncMiddleware } from '../../Util/asyncMiddleware.js';
 import { checkToken } from '../Auth/check-token.js';
 
-
 const register = ( app, conn, marketURL ) => {
-  app.put( "/inventory/:id/:token",
+  app.get( "/inventory/context/:id/:token",
     param('id').notEmpty().isInt().toInt().withMessage("invalid id (must be integer)"),
     param('token').notEmpty().isString().withMessage("invalid token (must be string)"),
-    body('uid').notEmpty().isInt().toInt( { min:0 } ).withMessage("invalid uid (must be zero or positive integer)"),
-    body('count').notEmpty().isInt( { min:0 } ).toInt().optional().withMessage("invalid count (must be zero or positive integer)"),
-    body('want').notEmpty().isFloat().optional().withMessage("invalid want (must be float)"),
     asyncMiddleware( async (request,response,next) => {
       /** Query Validation */
       const result = validationResult(request) ;
@@ -29,6 +25,12 @@ const register = ( app, conn, marketURL ) => {
       if( !tokenStatus.ok )
       {
         response.status(200).json( {
+          "actors": [ ],
+          "companies": [ ],
+          "itemPrototypes": [ ],
+          "categories": [ ], 
+          "timestamps": [ ], 
+          "valueTrends": [ ], 
           "errors": tokenStatus.errors
         } ) ;
         return ;
@@ -38,12 +40,8 @@ const register = ( app, conn, marketURL ) => {
 
       /** Forward Request to Market */
       await fetch(
-        `${marketURL}/inventory/${request.params.id}`,
-        {
-          method: 'PUT',
-          body: JSON.stringify( request.body ),
-          headers: { 'Content-type': 'application/json' }
-        },
+        `${marketURL}/inventory/context`,
+        { method: 'GET' }
       ).then(
         (marketResponse) => marketResponse.json()
       ).then(
@@ -53,4 +51,4 @@ const register = ( app, conn, marketURL ) => {
   } ) ) ;
 }
 
-export { register as registerEdit } ;
+export { register as registerContext } ;

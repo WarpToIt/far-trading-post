@@ -1,5 +1,9 @@
 using System;
 using System.Collections;
+using System.Text;
+using FarTrader.Authentication;
+using FarTrader.Navigation;
+using FarTrader.Request;
 using UnityEngine;
 
 namespace FarTrader.Marketplace
@@ -8,45 +12,64 @@ namespace FarTrader.Marketplace
   {
 #region Unity Editor Fields
     [SerializeField] ServerInfo server ;
-    [SerializeField] InventoryEndpoints inventoryEndpoints ;
+    [SerializeField] InventoryEndpoints endpoints ;
     [SerializeField] MarketOversight marketOversight ;
 #endregion
 
 
-#region API Actions
-    public IEnumerator Login(int id, string token, Action<ListResponse> onResult)
+#region Unity Actions
+    public void OnUserAuthenticated(User user)
     {
-      yield return null ;
-      onResult?.Invoke(default) ;
-      throw new NotImplementedException( $"GET {inventoryEndpoints.list}" ) ;
+      StartCoroutine( Context( user.Id, user.Token.Key, (ctx) =>
+      {
+        Debug.Log( ctx ) ;
+        MarketplaceEvents.ContextReceived.Invoke() ;
+        NavigationEvents.UnlockOkDialog.Invoke() ;
+      } ) ) ;
+    }
+#endregion
+
+
+#region API Actions
+    public IEnumerator Context(int id, string token, Action<ContextResponse> onResult)
+    {
+      yield return StartCoroutine(
+        RequestDispatcher.Dispatch(
+          RequestType.GET,
+          $"http://{server.Host}:{server.Port}{endpoints.context}",
+          new string[] { id.ToString(), token } ,
+          Encoding.UTF8.GetBytes( $"{{ }}" ),
+          (s) => { onResult?.Invoke( new ContextResponse( JsonUtility.FromJson<ContextResponse.RawContextResponse>(s) ) ) ; }
+        )
+      ) ;
     }
 
     public IEnumerator Give(int id, string token, int uid, int count, int want, Action<object> onResult)
     {
       yield return null ;
       onResult?.Invoke(default) ;
-      throw new NotImplementedException( $"GET {inventoryEndpoints.list}" ) ;
+      throw new NotImplementedException( $"POST {endpoints.list}" ) ;
     }
 
     public IEnumerator Edit(int id, string token, int uid, int count, int want, Action<object> onResult)
     {
       yield return null ;
       onResult?.Invoke(default) ;
-      throw new NotImplementedException( $"GET {inventoryEndpoints.edit}" ) ;
+      throw new NotImplementedException( $"PUT {endpoints.edit}" ) ;
     }
 
     public IEnumerator Transfer(int id, int target_id, string token, int uid, int count, Action<object> onResult)
     {
       yield return null ;
       onResult?.Invoke(default) ;
-      throw new NotImplementedException( $"GET {inventoryEndpoints.transfer}" ) ;
+      throw new NotImplementedException( $"PUT {endpoints.transfer}" ) ;
     }
 
     public IEnumerator Remove(int id, string token, int uid, int count, Action<object> onResult)
     {
       yield return null ;
       onResult?.Invoke(default) ;
-      throw new NotImplementedException( $"GET {inventoryEndpoints.remove}" ) ;
+      throw new NotImplementedException( $"DELETE {endpoints.remove}" ) ;
     }
 #endregion
 
@@ -68,11 +91,12 @@ namespace FarTrader.Marketplace
     [Serializable]
     private class InventoryEndpoints
     {
-      public string list = "/inventory/{id}" ;
-      public string give = "/inventory/{id}" ;
-      public string edit = "/inventory/{id}" ;
-      public string transfer = "/inventory/{id}/{target_id}" ;
-      public string remove = "/inventory/{id}" ;
+      public string context = "/inventory/context/{id}/{token}" ;
+      public string list = "/inventory/{id}/{token}" ;
+      public string give = "/inventory/{id}/{token}" ;
+      public string edit = "/inventory/{id}/{token}" ;
+      public string transfer = "/inventory/{id}/{target_id}/{token}" ;
+      public string remove = "/inventory/{id}/{token}" ;
     }
 #endregion
   }

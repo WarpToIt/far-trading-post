@@ -7,6 +7,11 @@ namespace FarTrader.Navigation
 {
   public class NavigationApi : MonoBehaviour
   {
+#region Fields
+      private readonly List<NavigableScreen> _all = new () ;
+#endregion
+
+
 #region Unity Editor
     [SerializeField] private NavigableScreen initialScreen ;
     [SerializeField] private NavScreens navigableScreens ;
@@ -18,15 +23,21 @@ namespace FarTrader.Navigation
     public NavigableScreen Registration => navigableScreens.registrationScreen ;
     public NavigableScreen Overview => navigableScreens.overviewScreen ;
     public NavigableScreen Inventory => navigableScreens.inventoryScreen ;
-    public List<NavigableScreen> All => new() ;
+    public NavigableScreen Trade => navigableScreens.tradeScreen ;
 #endregion
 
 
 #region Event Handlers
     public void OnTriggerReturnToLogin()
     {
-      All.ForEach( (screen) => { screen.Close() ; } ) ;
+      _all.ForEach( (screen) => { screen.Close() ; } ) ;
       Login.Open() ;
+    }
+
+    public void OnClickNavigateTo(NavigableScreen navigableScreen)
+    {
+      _all.ForEach( (screen) => { screen.Close() ; } ) ;
+      navigableScreen.Open() ;
     }
 #endregion
 
@@ -46,10 +57,11 @@ namespace FarTrader.Navigation
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-      All.Add( Login ) ;
-      All.Add( Registration ) ;
-      All.Add( Overview ) ;
-      All.Add( Inventory ) ;
+      _all.Add( Login ) ;
+      _all.Add( Registration ) ;
+      _all.Add( Overview ) ;
+      _all.Add( Inventory ) ;
+      _all.Add( Trade ) ;
 
       if( initialScreen != null )
       {
@@ -70,6 +82,7 @@ namespace FarTrader.Navigation
       public NavigableScreen registrationScreen ;
       public NavigableScreen overviewScreen ;
       public NavigableScreen inventoryScreen ;
+      public NavigableScreen tradeScreen ;
     }
   }
 }

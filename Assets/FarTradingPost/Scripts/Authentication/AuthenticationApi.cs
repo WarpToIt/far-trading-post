@@ -24,7 +24,7 @@ namespace FarTrader.Authentication
     public void OnClickLogin( LoginExtractor loginData ) =>
       LoginUser( loginData.EmailRaw, loginData.PasswordRaw, () =>
       {
-        NavigationEvents.TriggerOkDialog.Invoke( new OkDialogContext( $"Welcome back, {user.Name}!", () => { NavigationEvents.TriggerOpenOverview.Invoke() ; } ) ) ;
+        NavigationEvents.TriggerOkDialog.Invoke( new OkDialogContext( $"Welcome back, {user.Name}!", false, () => { NavigationEvents.TriggerOpenOverview.Invoke() ; } ) ) ;
       } ) ;
 
     public void OnClickLogout() =>
@@ -34,7 +34,7 @@ namespace FarTrader.Authentication
     {
       if( !registrationData.PwdMatch )
       {
-        NavigationEvents.TriggerOkDialog.Invoke( new OkDialogContext( $"Submitted passwords don't match.", () => {} ) ) ;  
+        NavigationEvents.TriggerOkDialog.Invoke( new OkDialogContext( $"Submitted passwords don't match.", true, () => {} ) ) ;  
         //throw new ArgumentException( "Submitted passwords don't match." ) ;
       }
 

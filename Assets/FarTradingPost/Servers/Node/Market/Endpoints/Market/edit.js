@@ -4,10 +4,9 @@ import { param, body, validationResult } from 'express-validator' ;
 import { asyncMiddleware } from '../../Util/asyncMiddleware.js';
 
 
-const register = ( app ) => {
+const register = ( app, conn ) => {
   app.put( "/inventory/:id",
     param('id').notEmpty().isInt().toInt().withMessage("invalid id (must be integer)"),
-    body('token').notEmpty().isString().withMessage("invalid token (must be string)"),
     body('uid').notEmpty().isInt().toInt( { min:0 } ).withMessage("invalid uid (must be zero or positive integer)"),
     body('count').notEmpty().isInt( { min:0 } ).toInt().optional().withMessage("invalid count (must be zero or positive integer)"),
     body('want').notEmpty().isFloat().optional().withMessage("invalid want (must be float)"),

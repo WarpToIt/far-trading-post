@@ -6,13 +6,15 @@ namespace FarTrader.Navigation
   {
 #region Properties
     public string Message { get; private set ; }
+    public bool IsUnlocked { get; private set ; }
     public Action OnDismiss { get ; private set ; }
 #endregion
 
 
-    public OkDialogContext( string message, Action onDismiss )
+    public OkDialogContext( string message, bool isUnlocked, Action onDismiss )
     {
       Message = message ;
+      IsUnlocked = isUnlocked ;
       OnDismiss = onDismiss ;
     }
   } 

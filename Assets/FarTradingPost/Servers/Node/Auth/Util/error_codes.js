@@ -15,6 +15,8 @@ const error_codes = {
   "SWR_ISSUE_TOKEN"               : 'X001 something went wrong when attempting to issue a token',
   "SWR_EXTEND_TOKEN"              : 'X002 something went wrong when attempting to extend a token',
   "SWR_DELETE_TOKEN"              : 'X002 something went wrong when attempting to delete a token',
+
+  "INVENTORY_EMPTY"               : '0201 no items found in this user\'s inventory',
 } ;
 
 export { error_codes } ;

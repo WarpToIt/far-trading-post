@@ -9,7 +9,10 @@ namespace FarTrader.Authentication
 {
   public class SaltResponse
   {
+#region Fields
     private RawSaltResponse _response ;
+#endregion
+
 
 #region Properties
     public bool OK => _response.errors.Length == 0 ;
@@ -18,10 +21,14 @@ namespace FarTrader.Authentication
     public List<string> Errors => _response.errors.ToList() ;
 #endregion
 
+
+#region Constructor
     internal SaltResponse( RawSaltResponse response )
     {
       _response = response ;
     }
+#endregion
+
 
 #region Serializables
     [Serializable]

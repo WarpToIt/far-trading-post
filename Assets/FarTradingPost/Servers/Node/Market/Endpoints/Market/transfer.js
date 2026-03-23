@@ -4,13 +4,12 @@ import { param, body, validationResult } from 'express-validator' ;
 import { asyncMiddleware } from '../../Util/asyncMiddleware.js';
 
 
-const register = ( app ) => {
-  app.put( "/inventory/:id/:target",
+const register = ( app, conn ) => {
+  app.put( "/inventory/:id/:uid/:count/:target",
     param('id').notEmpty().isInt().toInt().withMessage("invalid id (must be integer)"),
     param('target').notEmpty().isInt().toInt().withMessage("invalid id (must be integer)"),
-    body('token').notEmpty().isString().withMessage("invalid token (must be string)"),
-    body('uid').notEmpty().isInt().toInt( { min:0 } ).withMessage("invalid uid (must be zero or positive integer)"),
-    body('count').notEmpty().isInt( { min:0 } ).toInt().optional().withMessage("invalid count (must be zero or positive integer)"),
+    param('uid').notEmpty().isInt().toInt( { min:0 } ).withMessage("invalid uid (must be zero or positive integer)"),
+    param('count').notEmpty().isInt( { min:0 } ).toInt().optional().withMessage("invalid count (must be zero or positive integer)"),
     asyncMiddleware( async (request,response,next) => {
       /** Query Validation */
       const result = validationResult(request) ;

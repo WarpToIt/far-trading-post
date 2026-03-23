@@ -1,13 +1,14 @@
 // module "list.js"
 "use strict" ;
-import { param, body, validationResult } from 'express-validator' ;
+import { param, validationResult } from 'express-validator' ;
+import { default as fetch } from 'node-fetch' ;
 import { asyncMiddleware } from '../../Util/asyncMiddleware.js';
+import { checkToken } from '../Auth/check-token.js';
 
-
-const register = ( app ) => {
-  app.get( "/inventory/:id",
+const register = ( app, conn, marketURL ) => {
+  app.get( "/inventory/:id/:token",
     param('id').notEmpty().isInt().toInt().withMessage("invalid id (must be integer)"),
-    body('token').notEmpty().isString().withMessage("invalid token (must be string)"),
+    param('token').notEmpty().isString().withMessage("invalid token (must be string)"),
     asyncMiddleware( async (request,response,next) => {
       /** Query Validation */
       const result = validationResult(request) ;
@@ -17,13 +18,30 @@ const register = ( app ) => {
       }
       /** End */
 
-      let resBody = {
-        "data": [ {"proto_id": 234567, "uid": 345678, "count": 17, "want": 0.85} ], 
-        "errors": [ ]
-      } ;
 
-      /** Dispatch Response */
-      response.status(200).json( resBody ) ;
+      /** Check Token Validity */
+      let tokenStatus = await checkToken( request.params.id, request.params.token, conn ) ;
+
+      if( !tokenStatus.ok )
+      {
+        response.status(200).json( {
+          "data": [ ], 
+          "errors": tokenStatus.errors
+        } ) ;
+        return ;
+      }
+      /** End */
+
+
+      /** Forward Request to Market */
+      await fetch(
+        `${marketURL}/inventory`,
+        { method: 'GET' }
+      ).then(
+        (marketResponse) => marketResponse.json()
+      ).then(
+        (json) => response.status(200).json( json ) 
+      ) ;
       /** End */
   } ) ) ;
 }
