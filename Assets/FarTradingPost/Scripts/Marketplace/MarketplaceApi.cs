@@ -6,9 +6,10 @@ namespace FarTrader.Marketplace
 {
   public class MarketplaceApi : MonoBehaviour
   {
-#region Unity Editor
+#region Unity Editor Fields
     [SerializeField] ServerInfo server ;
     [SerializeField] InventoryEndpoints inventoryEndpoints ;
+    [SerializeField] MarketOversight marketOversight ;
 #endregion
 
 

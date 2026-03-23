@@ -9,6 +9,12 @@ namespace FarTrader.Navigation
 #endregion
 
 
+#region Unity Editor Fields
+    [SerializeField] private bool hasSidePanel ;
+    [SerializeField] private NavigableScreen sidePanel ;
+#endregion
+
+
 #region Properties
     public bool IsVisible { get ; private set ; } = false ;
 #endregion
@@ -32,6 +38,9 @@ namespace FarTrader.Navigation
       if( IsVisible )
         return ;
       
+      if( hasSidePanel )
+        sidePanel.Show() ;
+
       transform.position -= _offsetPosition ;
       IsVisible = true ;
     }
@@ -39,6 +48,9 @@ namespace FarTrader.Navigation
     {
       if( !IsVisible )
         return ;
+      
+      if( hasSidePanel )
+        sidePanel.Hide() ;
       
       transform.position += _offsetPosition ;
       IsVisible = false ;
