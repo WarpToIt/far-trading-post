@@ -4,7 +4,7 @@ import { param, body, validationResult } from 'express-validator' ;
 import { asyncMiddleware } from '../../Util/asyncMiddleware.js';
 
 
-const register = ( app ) => {
+const register = ( app, con, marketURL ) => {
   app.delete( "/user/:id/:token",
     param('id').notEmpty().isInt().toInt().withMessage("invalid id (must be integer)"),
     param('token').notEmpty().isString().withMessage("invalid token (must be string)"),

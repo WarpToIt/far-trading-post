@@ -16,6 +16,8 @@ const error_codes = {
   "SWR_EXTEND_TOKEN"              : 'X002 something went wrong when attempting to extend a token',
   "SWR_DELETE_TOKEN"              : 'X002 something went wrong when attempting to delete a token',
 
+  "SWR_REGISTER_USER"             : 'X101 something went wrong when attempting to register a new user',
+
   "INVENTORY_EMPTY"               : '0201 no items found in this user\'s inventory',
 } ;
 

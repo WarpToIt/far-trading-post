@@ -42,7 +42,8 @@ namespace FarTrader.Authentication
         Register(
           registrationData.UsernameRaw,
           registrationData.EmailRaw,
-          registrationData.PasswordRaw,
+          HashPasskey( registrationData.PasswordRaw, registrationData.Salt ),
+          registrationData.Salt,
           (response) =>
           {
             if( response.OK )
@@ -194,14 +195,14 @@ namespace FarTrader.Authentication
     /// </summary>
     /// <param name="passkey">The hashed passkey.</param>
     /// <param name="onResult">The BasicResponse will be OK if the request was successful.</param>
-    public IEnumerator Register(string username, string email, string passkey, Action<BasicResponse> onResult)
+    public IEnumerator Register(string username, string email, string passkey, string salt, Action<BasicResponse> onResult)
     {
       yield return StartCoroutine(
         RequestDispatcher.Dispatch(
           RequestType.POST,
           $"http://{server.Host}:{server.Port}{endpoints.register}",
           new string[] {} ,
-          Encoding.UTF8.GetBytes( $"{{ \"username\": \"{username}\", \"email\": \"{email}\", \"passkey\": \"{passkey}\" }}" ),
+          Encoding.UTF8.GetBytes( $"{{ \"username\": \"{username}\", \"email\": \"{email}\", \"passkey\": \"{passkey}\", \"salt\": \"{salt}\" }}" ),
           (s) => { onResult?.Invoke( new BasicResponse( JsonUtility.FromJson<BasicResponse.RawBasicResponse>(s) ) ) ; }
         )
       ) ;

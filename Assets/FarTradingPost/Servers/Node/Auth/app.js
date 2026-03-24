@@ -38,7 +38,7 @@ const conn = await mysql.createConnection({
 /******* ENDPOINTS *******/
 /*************************/
 
-import { registerAuth  } from './Endpoints/Auth/register-auth.js' ;       registerAuth( app, conn ) ;
+import { registerAuth  } from './Endpoints/Auth/register-auth.js' ;       registerAuth( app, conn, `http://${MARKET_HOST}:${MARKET_PORT}` ) ;
 import { registerMarket } from './Endpoints/Market/register-market.js' ;  registerMarket( app, conn, `http://${MARKET_HOST}:${MARKET_PORT}` ) ;
 
 /*************************/
