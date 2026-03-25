@@ -7,27 +7,31 @@ namespace FarTrader.Marketplace
   public class ItemPrototype
   {
 #region Fields
+      private readonly int id ;
       private readonly string name ;
-      private readonly string category ;
+      private readonly ItemCategory category ;
       private readonly int unitValue ;
 #endregion
 
 
 #region Properties
+    public int Id => id ;
     public string Name => name ;
-    public string Category => category ;
+    public ItemCategory Category => category ;
     public int UnitValue => unitValue ;
 #endregion
 
 
 #region Constructor
-    public ItemPrototype( ItemPrototypeData data ) : this( data.name, data.category, data.unitValue ) { }
+    public ItemPrototype( ItemPrototypesRowData data, ItemCategory category ) : this( data.id, data.name, category, data.value ) { }
+    //public ItemPrototype( ItemPrototypeData data ) : this( data.name, data.category, data.unitValue ) { }
 
-    public ItemPrototype( string name, string category, int unitValue )
+    public ItemPrototype( int id, string name, ItemCategory category, int value )
     {
+      this.id         = id ;
       this.name       = name ;
       this.category   = category ;
-      this.unitValue  = unitValue ;
+      this.unitValue  = value ;
     }
 #endregion
 

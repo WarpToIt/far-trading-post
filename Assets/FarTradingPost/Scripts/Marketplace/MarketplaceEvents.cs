@@ -1,3 +1,4 @@
+using FarTrader.Authentication;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,12 +9,14 @@ namespace FarTrader.Marketplace
     private static MarketplaceEvents _instance ;
 
 #region Unity Editor
-    [SerializeField] private UnityEvent contextReceived  ;
+    [SerializeField] private UnityEvent<ContextResponse> contextReceived ;
+    [SerializeField] private UnityEvent<Actor> contextLoaded ;
 #endregion
 
 
 #region Static Properties
-    public static UnityEvent ContextReceived => _instance.contextReceived ;
+    public static UnityEvent<ContextResponse> ContextReceived => _instance.contextReceived ;
+    public static UnityEvent<Actor> ContextLoaded => _instance.contextLoaded ;
 #endregion
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

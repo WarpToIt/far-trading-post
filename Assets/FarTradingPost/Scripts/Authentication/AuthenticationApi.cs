@@ -1,13 +1,11 @@
 using System;
 using System.Collections;
-using System.Data.Common;
 using UnityEngine;
 using FarTrader.Request ;
 using System.Text;
-using TMPro;
-using UnityEngine.InputSystem.Composites;
 using FarTrader.Navigation;
 using System.Security.Cryptography;
+using FarTrader.Marketplace;
 
 namespace FarTrader.Authentication 
 {
@@ -17,6 +15,11 @@ namespace FarTrader.Authentication
     [SerializeField] User user ;
     [SerializeField] ServerInfo server ;
     [SerializeField] AuthEndpoints endpoints ;
+#endregion
+
+
+#region Unity Events
+    public void OnContextLoaded( Actor actor ) { user.Actor = actor ; }
 #endregion
 
 

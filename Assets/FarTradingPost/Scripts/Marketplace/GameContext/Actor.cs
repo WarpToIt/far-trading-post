@@ -11,9 +11,21 @@ namespace FarTrader.Marketplace
 
 
 #region Properites
+    public int Id { get ; protected set ; }
+    public string Name { get ; protected set ; }
+    public Company Company { get ; protected set ; }
     public bool IsActivePlayer { get ; protected set ; }
 #endregion
 
+
+#region Initialization
+    internal void InitializeFrom( int id, string name, Company company )
+    {
+      Id      = id ;
+      Name    = name ;
+      Company = company ;
+    }
+#endregion
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

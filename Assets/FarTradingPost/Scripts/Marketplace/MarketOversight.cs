@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Constraints;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 namespace FarTrader.Marketplace
@@ -7,30 +9,135 @@ namespace FarTrader.Marketplace
   public class MarketOversight : MonoBehaviour
   {
 #region Unity Editor Fields
+    [SerializeField] RectTransform companyRegistry ;
+    [SerializeField] GameObject companyPrefab ;
+
+    [SerializeField] RectTransform actorRepository ;
+    [SerializeField] GameObject actorPrefab ;
+
     [SerializeField] RectTransform itemWarehouse ;
     [SerializeField] GameObject marketItemPrefab ;
 #endregion
 
 
 #region Properties
-    public readonly List<MarketItem> AllMarketItems = new () ;
-    public readonly List<ItemPrototype> AllItemPrototypes = new () ;
+    private readonly List<Actor> _actors = new () ;
+    private readonly List<Company> _companies = new () ;
+    private readonly List<MarketItem> _marketItems = new () ;
+    private readonly List<ItemPrototype> _itemPrototypes = new () ;
+    private readonly List<ItemCategory> _categories = new () ;
+    private readonly List<GameTimestamp> _timestamps = new () ;
+    private readonly List<ItemValueTrend> _valueTrends = new () ;
 #endregion
 
 
 #region Item Management
+    public void NewCompany( CompanyRowData data )
+    {
+      Company company = Instantiate( companyPrefab ).GetComponent<Company>() ;
+      company.InitializeFrom( data ) ;
+      company.GetComponent<RectTransform>().SetParent( companyRegistry ) ;
+      _companies.Add( company ) ;
+    }
+
+    public void NewActor( ActorRowData data )
+    {
+      Actor actor = Instantiate( actorPrefab ).GetComponent<Actor>() ;
+      actor.InitializeFrom( data.id, data.name, GetCompanyById(data.id) ) ;
+      actor.GetComponent<RectTransform>().SetParent( actorRepository ) ;
+      _actors.Add( actor ) ;
+    }
+
     public void NewMarketItem( Actor owner, ItemPrototype itemPrototype )
     {
       MarketItem marketItem = Instantiate( marketItemPrefab ).GetComponent<MarketItem>() ;
       marketItem.InitializeFrom( owner, itemPrototype ) ;
       marketItem.GetComponent<RectTransform>().SetParent( itemWarehouse ) ;
-      AllMarketItems.Add( marketItem ) ;
+      _marketItems.Add( marketItem ) ;
     }
 #endregion
 
 
 #region Retrieval Methods
-    public IEnumerable<MarketItem> GetActorInventory( Actor actor ) => AllMarketItems.Where( (mItem) => mItem.Owner == actor ) ;
+    public IEnumerable<MarketItem> GetActorInventory( Actor actor ) => _marketItems.Where( (mItem) => mItem.Owner == actor ) ;
+
+    public Actor GetActorById( int id ) => _actors.FirstOrDefault( (e) => e.Id == id ) ;
+    public Company GetCompanyById( int id ) => _companies.FirstOrDefault( (e) => e.Id == id ) ;
+    public ItemCategory GetCagtegoryById( int id ) => _categories.FirstOrDefault( (e) => e.Id == id ) ;
+    public GameTimestamp GetTimestampById( int id ) => _timestamps.FirstOrDefault( (e) => e.Id == id ) ;
+    public bool TryGetTimestampById( int id, out GameTimestamp timestamp )
+    {
+      timestamp = _timestamps.FirstOrDefault( (e) => e.Id == id ) ;
+      return timestamp != default ;
+    }
+#endregion
+
+
+#region Initialization
+    public void OnContextReceived( ContextResponse context )
+    {
+      Debug.Log( context ) ;
+
+      foreach( CompanyRowData row in context.Companies )
+      {
+        NewCompany( row ) ;
+      }
+#if UNITY_EDITOR
+      Debug.Log($"{_companies.Count} Companies loaded from context.");
+#endif
+
+      foreach( ActorRowData row in context.Actors )
+      {
+        NewActor( row ) ;
+      }
+#if UNITY_EDITOR
+      Debug.Log($"{_actors.Count} Actors loaded from context.");
+#endif
+
+      foreach( CategoriesRowData row in context.Categories )
+      {
+        _categories.Add( new ItemCategory( row ) ) ;
+      }
+#if UNITY_EDITOR
+      Debug.Log($"{_categories.Count} Categories loaded from context.");
+#endif
+
+      foreach( ItemPrototypesRowData row in context.ItemPrototypes )
+      {
+        _itemPrototypes.Add( new ItemPrototype( row, GetCagtegoryById( row.category ) ) ) ;
+      }
+#if UNITY_EDITOR
+      Debug.Log($"{_itemPrototypes.Count} ItemPrototypes loaded from context.");
+#endif
+
+      foreach( TimestampsRowData row in context.Timestamps )
+      {
+        _timestamps.Add( new GameTimestamp( row ) ) ;
+      }
+#if UNITY_EDITOR
+      Debug.Log($"{_timestamps.Count} Timestamps loaded from context.");
+#endif
+
+      foreach( ValueTrendsRowData row in context.ValueTrends )
+      {
+        ItemCategory category     = GetCagtegoryById( row.category_id ) ;
+        if( TryGetTimestampById( row.timestamp_id, out GameTimestamp timestamp) )
+        {
+          ItemValueTrend valueTrend = new( category, timestamp, row.trend ) ;
+          _valueTrends.Add( valueTrend ) ;
+          category.ValueTrends.Add( valueTrend ) ;
+        }
+        else
+        {
+          Debug.Log( $"Failed to find Timestamp with Id {row.timestamp_id}" ) ;
+        }
+      }
+#if UNITY_EDITOR
+      Debug.Log($"{_valueTrends.Count} Value Trends loaded from context.");
+#endif
+
+      MarketplaceEvents.ContextLoaded.Invoke( GetActorById( context.UserId ) ) ;
+    }
 #endregion
 
 

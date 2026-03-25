@@ -22,10 +22,13 @@ namespace FarTrader.Marketplace
     {
       StartCoroutine( Context( user.Id, user.Token.Key, (ctx) =>
       {
-        Debug.Log( ctx ) ;
-        MarketplaceEvents.ContextReceived.Invoke() ;
-        NavigationEvents.UnlockOkDialog.Invoke() ;
+        MarketplaceEvents.ContextReceived.Invoke( ctx ) ;
       } ) ) ;
+    }
+
+    public void OnContextLoaded( Actor actor )
+    {
+      NavigationEvents.UnlockOkDialog.Invoke() ;
     }
 #endregion
 
@@ -39,7 +42,7 @@ namespace FarTrader.Marketplace
           $"http://{server.Host}:{server.Port}{endpoints.context}",
           new string[] { id.ToString(), token } ,
           Encoding.UTF8.GetBytes( $"{{ }}" ),
-          (s) => { onResult?.Invoke( new ContextResponse( JsonUtility.FromJson<ContextResponse.RawContextResponse>(s) ) ) ; }
+          (s) => { onResult?.Invoke( new ContextResponse( id, JsonUtility.FromJson<ContextResponse.RawContextResponse>(s) ) ) ; }
         )
       ) ;
     }

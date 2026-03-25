@@ -33,7 +33,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1402777841221096991
 GameObject:
@@ -201,7 +201,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FarTrader.Marketplace.MarketplaceEvents
   contextReceived:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4316688916442922702}
+        m_TargetAssemblyTypeName: FarTrader.Marketplace.MarketOversight, Assembly-CSharp
+        m_MethodName: OnContextReceived
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  contextLoaded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8405226224467811101}
+        m_TargetAssemblyTypeName: FarTrader.Authentication.AuthenticationApi, Assembly-CSharp
+        m_MethodName: OnContextLoaded
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5218842053194201483}
+        m_TargetAssemblyTypeName: FarTrader.Marketplace.MarketplaceApi, Assembly-CSharp
+        m_MethodName: OnContextLoaded
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2404627758116167552
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +317,41 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &4399838805059377002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6420994277846865463}
+  m_Layer: 5
+  m_Name: ActorRepository
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6420994277846865463
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4399838805059377002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8947796721592355691}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -479,6 +553,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7820547170013590512}
+  - {fileID: 6420994277846865463}
   - {fileID: 1917602433224047854}
   m_Father: {fileID: 2136034424439650891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -499,6 +575,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c529663310fdc438f823d582acb305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarTrader.Marketplace.MarketOversight
+  companyRegistry: {fileID: 7820547170013590512}
+  companyPrefab: {fileID: 4920152767201552226, guid: d0f58ef5eea39ac438db9cf5c5346357, type: 3}
+  actorRepository: {fileID: 6420994277846865463}
+  actorPrefab: {fileID: 4920152767201552226, guid: fd558176423ae3a4cae0b8d11c15e15c, type: 3}
   itemWarehouse: {fileID: 1917602433224047854}
   marketItemPrefab: {fileID: 4920152767201552226, guid: 068f24d2546e6a841a5e623c4f6a536d, type: 3}
 --- !u!1 &6461151585121695065
@@ -573,6 +653,41 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!1 &7755982430003494310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7820547170013590512}
+  m_Layer: 5
+  m_Name: CompanyRegistry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7820547170013590512
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755982430003494310}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8947796721592355691}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &933079951363500566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -599,7 +714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 781703247361910768, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000060506452
+      value: 0.0010467803
       objectReference: {fileID: 0}
     - target: {fileID: 2655362729180316384, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: m_AnchorMax.y

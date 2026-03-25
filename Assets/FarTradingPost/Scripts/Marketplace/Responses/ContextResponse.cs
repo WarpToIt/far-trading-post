@@ -1,12 +1,14 @@
 using System ;
 using System.Collections.Generic;
 using System.Linq;
+using FarTrader.Authentication;
 
 namespace FarTrader.Marketplace
 {
   public class ContextResponse
   {
 #region Fields
+    private readonly int _userId ;
     private readonly RawContextResponse _response ;
 #endregion
 
@@ -14,6 +16,7 @@ namespace FarTrader.Marketplace
 // TODO: clean up raw sql data into friendly usable datatypes 
 #region Properties
     public bool OK => _response.errors.Length == 0 ;
+    public int UserId => _userId ;
     public List<ActorRowData> Actors => _response.actors.ToList() ;
     public List<CompanyRowData> Companies => _response.companies.ToList() ;
     public List<ItemPrototypesRowData> ItemPrototypes => _response.itemPrototypes.ToList() ;
@@ -25,8 +28,9 @@ namespace FarTrader.Marketplace
 
 
 #region Constructor
-    internal ContextResponse( RawContextResponse response )
+    internal ContextResponse( int userId, RawContextResponse response )
     {
+      _userId     = userId ;
       _response = response ;
     }
 #endregion

@@ -1,4 +1,5 @@
 using System;
+using FarTrader.Marketplace;
 using UnityEngine;
 
 namespace FarTrader.Authentication
@@ -10,11 +11,15 @@ namespace FarTrader.Authentication
     public string Name { get ; internal set ; } = string.Empty ;
     public string Email { get ; internal set ; } = string.Empty ;
     public SessionToken Token { get ; internal set ; } = null ;
+
+    public Actor Actor { get ; internal set ; } = null ;
 #endregion
 
 
 #region Derived Properties
-    public bool IsLoggedIn => Token != null && Token.ExpiresAt > DateTime.Now ;
+    public bool IsLoggedIn => HasValidToken && HasAssignedActor ;
+    public bool HasValidToken => Token != null && Token.ExpiresAt > DateTime.Now ;
+    public bool HasAssignedActor => Actor != null ;
 #endregion
 
 
