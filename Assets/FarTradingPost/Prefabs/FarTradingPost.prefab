@@ -142,6 +142,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  updateItemListing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4316688916442922702}
+        m_TargetAssemblyTypeName: FarTrader.Marketplace.MarketOversight, Assembly-CSharp
+        m_MethodName: OnUpdateItemListing
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   unlockOkDialog:
     m_PersistentCalls:
       m_Calls:
@@ -214,12 +229,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  contextLoaded:
+  inventoryReceived:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8405226224467811101}
-        m_TargetAssemblyTypeName: FarTrader.Authentication.AuthenticationApi, Assembly-CSharp
-        m_MethodName: OnContextLoaded
+      - m_Target: {fileID: 4316688916442922702}
+        m_TargetAssemblyTypeName: FarTrader.Marketplace.MarketOversight, Assembly-CSharp
+        m_MethodName: OnInventoryReceived
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -229,6 +244,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  contextLoaded:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 5218842053194201483}
         m_TargetAssemblyTypeName: FarTrader.Marketplace.MarketplaceApi, Assembly-CSharp
         m_MethodName: OnContextLoaded
@@ -714,7 +732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 781703247361910768, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0010467803
+      value: 0.0000222464
       objectReference: {fileID: 0}
     - target: {fileID: 2655362729180316384, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: m_AnchorMax.y
@@ -778,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6217522140425396664, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.9999883
       objectReference: {fileID: 0}
     - target: {fileID: 7639754270980372010, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: sidePanel
@@ -883,14 +901,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8614203899072201357, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6329981981475175533}
   m_SourcePrefab: {fileID: 100100000, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
 --- !u!114 &7419446524804963388 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7639754270980372010, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
   m_PrefabInstance: {fileID: 933079951363500566}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8897208010438650011}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 276542658f74b4b4e9f7279981797949, type: 3}
@@ -901,6 +922,36 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9145927987837003247, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
   m_PrefabInstance: {fileID: 933079951363500566}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8897208010438650011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8614203899072201357, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
+  m_PrefabInstance: {fileID: 933079951363500566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6329981981475175533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8897208010438650011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec15be9d58d30c2449a6ce8d98170f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarTrader.Navigation.ItemListingWidget
+  actorSelector: {fileID: 4167870341935424777}
+  itemListing: {fileID: 8988101726636808469}
+--- !u!114 &8988101726636808469 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8092636080946049795, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
+  m_PrefabInstance: {fileID: 933079951363500566}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 673641aebdda19744a168e5a80610b43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemListing
 --- !u!1001 &3279716589893051119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1188,7 +1239,28 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7754367258048590528, guid: 2e59d143d33635c48a1c1dc8e2d9380c, type: 3}
       insertIndex: 1
       addedObject: {fileID: 659620351918436993}
+    - targetCorrespondingSourceObject: {fileID: 2316964392181124260, guid: 2e59d143d33635c48a1c1dc8e2d9380c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4167870341935424777}
   m_SourcePrefab: {fileID: 100100000, guid: 2e59d143d33635c48a1c1dc8e2d9380c, type: 3}
+--- !u!1 &983022813447761483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2316964392181124260, guid: 2e59d143d33635c48a1c1dc8e2d9380c, type: 3}
+  m_PrefabInstance: {fileID: 3279716589893051119}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4167870341935424777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983022813447761483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd762338339b97844b1444db087597ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StaticSelectorUserActor
+  user: {fileID: 3891843683958902639}
 --- !u!1 &5052738836180766767 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7754367258048590528, guid: 2e59d143d33635c48a1c1dc8e2d9380c, type: 3}

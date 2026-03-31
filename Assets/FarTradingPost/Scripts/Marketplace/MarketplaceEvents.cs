@@ -10,12 +10,14 @@ namespace FarTrader.Marketplace
 
 #region Unity Editor
     [SerializeField] private UnityEvent<ContextResponse> contextReceived ;
+    [SerializeField] private UnityEvent<ListResponse> inventoryReceived ;
     [SerializeField] private UnityEvent<Actor> contextLoaded ;
 #endregion
 
 
 #region Static Properties
     public static UnityEvent<ContextResponse> ContextReceived => _instance.contextReceived ;
+    public static UnityEvent<ListResponse> InventoryReceived => _instance.inventoryReceived ;
     public static UnityEvent<Actor> ContextLoaded => _instance.contextLoaded ;
 #endregion
 

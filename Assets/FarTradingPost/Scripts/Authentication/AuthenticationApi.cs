@@ -18,11 +18,6 @@ namespace FarTrader.Authentication
 #endregion
 
 
-#region Unity Events
-    public void OnContextLoaded( Actor actor ) { user.Actor = actor ; }
-#endregion
-
-
 #region Unity Actions
     public void OnClickLogin( LoginExtractor loginData ) =>
       LoginUser( loginData.EmailRaw, loginData.PasswordRaw, () =>

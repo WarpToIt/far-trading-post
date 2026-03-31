@@ -17,10 +17,16 @@ namespace FarTrader.Marketplace
 #endregion
 
 
+#region Fields
+    private User _user ;
+#endregion
+
+
 #region Unity Actions
     public void OnUserAuthenticated(User user)
     {
-      StartCoroutine( Context( user.Id, user.Token.Key, (ctx) =>
+      _user = user ;
+      StartCoroutine( Context( _user.Id, _user.Token.Key, (ctx) =>
       {
         MarketplaceEvents.ContextReceived.Invoke( ctx ) ;
       } ) ) ;
@@ -28,6 +34,11 @@ namespace FarTrader.Marketplace
 
     public void OnContextLoaded( Actor actor )
     {
+      _user.Actor = actor ;
+      StartCoroutine( List( _user.Id, _user.Token.Key, (response) =>
+      {
+        MarketplaceEvents.InventoryReceived.Invoke( response ) ;
+      } ) ) ;
       NavigationEvents.UnlockOkDialog.Invoke() ;
     }
 #endregion
@@ -47,11 +58,24 @@ namespace FarTrader.Marketplace
       ) ;
     }
 
+    public IEnumerator List(int id, string token, Action<ListResponse> onResult)
+    {
+      yield return StartCoroutine(
+        RequestDispatcher.Dispatch(
+          RequestType.GET,
+          $"http://{server.Host}:{server.Port}{endpoints.list}",
+          new string[] { id.ToString(), token } ,
+          Encoding.UTF8.GetBytes( $"{{ }}" ),
+          (s) => { onResult?.Invoke( new ListResponse( JsonUtility.FromJson<ListResponse.RawListResponse>(s) ) ) ; }
+        )
+      ) ;
+    }
+
     public IEnumerator Give(int id, string token, int uid, int count, int want, Action<object> onResult)
     {
       yield return null ;
       onResult?.Invoke(default) ;
-      throw new NotImplementedException( $"POST {endpoints.list}" ) ;
+      throw new NotImplementedException( $"POST {endpoints.give}" ) ;
     }
 
     public IEnumerator Edit(int id, string token, int uid, int count, int want, Action<object> onResult)

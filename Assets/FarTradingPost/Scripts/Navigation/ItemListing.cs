@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FarTrader.Marketplace;
 using UnityEngine;
@@ -22,6 +23,14 @@ namespace FarTrader.Navigation
 
 
 #region Content Management
+    public void AddItems(IEnumerable<MarketItem> items )
+    {
+      foreach( MarketItem item in items)
+      {
+        AddItem( item ) ;
+      }
+    }
+
     public void AddItem(MarketItem item)
     {
       ItemPlaque itemPlaque = Instantiate( itemPlaquePrefab ).GetComponent<ItemPlaque>() ;

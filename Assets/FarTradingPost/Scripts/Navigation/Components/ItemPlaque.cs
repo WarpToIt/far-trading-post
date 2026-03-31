@@ -77,7 +77,7 @@ namespace FarTrader.Navigation
     public void InitializeFrom(MarketItem marketItem)
     {
       labelName.text      = marketItem.Name ;
-      labelCategory.text  = marketItem.Category.ToString() ; // TODO: extract trade good name
+      labelCategory.text  = marketItem.Category.Name ; // TODO: extract trade good name
       SetUnitValue( marketItem.UnitValue ) ;
       SetOwnedAvailLabel( marketItem.Owner.IsActivePlayer ? "Owned" : "Avail" ) ;
       SetOwnedAvailValue( marketItem.Count ) ;

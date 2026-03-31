@@ -9,6 +9,7 @@ namespace FarTrader.Navigation
 
 #region Unity Editor
     [SerializeField] private UnityEvent<OkDialogContext> triggerOkDialog ;
+    [SerializeField] private UnityEvent<ItemListingWidget> updateItemListing ;
     [SerializeField] private UnityEvent unlockOkDialog ;
     [SerializeField] private UnityEvent openOverview ;
     [SerializeField] private UnityEvent returnToLogin ;
@@ -17,6 +18,7 @@ namespace FarTrader.Navigation
 
 #region Static Properties
     public static UnityEvent<OkDialogContext> TriggerOkDialog => _instance.triggerOkDialog ;
+    public static UnityEvent<ItemListingWidget> UpdateItemListing => _instance.updateItemListing ;
     public static UnityEvent UnlockOkDialog => _instance.unlockOkDialog ;
     public static UnityEvent TriggerOpenOverview => _instance.openOverview ;
     public static UnityEvent TriggerReturnToLogin => _instance.returnToLogin ;

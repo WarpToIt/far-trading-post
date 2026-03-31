@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using FarTrader.Navigation;
 using NUnit.Framework.Constraints;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
@@ -48,10 +51,10 @@ namespace FarTrader.Marketplace
       _actors.Add( actor ) ;
     }
 
-    public void NewMarketItem( Actor owner, ItemPrototype itemPrototype )
+    public void NewMarketItem( Actor owner, ItemPrototype itemPrototype, int itemUid, int count, float want )
     {
       MarketItem marketItem = Instantiate( marketItemPrefab ).GetComponent<MarketItem>() ;
-      marketItem.InitializeFrom( owner, itemPrototype ) ;
+      marketItem.InitializeFrom( owner, itemPrototype, itemUid, count, want ) ;
       marketItem.GetComponent<RectTransform>().SetParent( itemWarehouse ) ;
       _marketItems.Add( marketItem ) ;
     }
@@ -60,15 +63,24 @@ namespace FarTrader.Marketplace
 
 #region Retrieval Methods
     public IEnumerable<MarketItem> GetActorInventory( Actor actor ) => _marketItems.Where( (mItem) => mItem.Owner == actor ) ;
-
     public Actor GetActorById( int id ) => _actors.FirstOrDefault( (e) => e.Id == id ) ;
+    public Actor GetActorOfPlayer() => _actors.FirstOrDefault( (e) => e.IsActivePlayer ) ;
     public Company GetCompanyById( int id ) => _companies.FirstOrDefault( (e) => e.Id == id ) ;
     public ItemCategory GetCagtegoryById( int id ) => _categories.FirstOrDefault( (e) => e.Id == id ) ;
+    public ItemPrototype GetPrototypeById( int id ) => _itemPrototypes.FirstOrDefault( (e) => e.Id == id ) ;
     public GameTimestamp GetTimestampById( int id ) => _timestamps.FirstOrDefault( (e) => e.Id == id ) ;
     public bool TryGetTimestampById( int id, out GameTimestamp timestamp )
     {
       timestamp = _timestamps.FirstOrDefault( (e) => e.Id == id ) ;
       return timestamp != default ;
+    }
+#endregion
+
+
+#region Event Handlers
+    public void OnUpdateItemListing( ItemListingWidget itemListingWidget )
+    {
+      itemListingWidget.ItemListing.AddItems( GetActorInventory( GetActorById( itemListingWidget.Actor.Id ) ) ) ;
     }
 #endregion
 
@@ -138,6 +150,17 @@ namespace FarTrader.Marketplace
 
       MarketplaceEvents.ContextLoaded.Invoke( GetActorById( context.UserId ) ) ;
     }
+    
+    public void OnInventoryReceived( ListResponse response )
+    {
+      foreach( InventoryRowData row in response.Data )
+      {
+        NewMarketItem( GetActorById( row.actor_id ), GetPrototypeById( row.proto_id ), row.uid, row.count, row.want ) ;
+      }
+#if UNITY_EDITOR
+      Debug.Log($"{_marketItems.Count} MarketItems loaded from response.");
+#endif
+    }
 #endregion
 
 
@@ -152,5 +175,22 @@ namespace FarTrader.Marketplace
     {
         
     }
+
+
+#region Serializables
+    [Serializable]
+    public class ItemListingByActor
+    {
+      public int id ;
+      public ItemListing itemListing ;
+    }
+
+    [Serializable]
+    public class ItemListingByItems
+    {
+      public IEnumerable<MarketItem> items ;
+      public ItemListing itemListing ;
+    }
+#endregion
   }
 }

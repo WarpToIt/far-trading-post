@@ -37,6 +37,10 @@ namespace FarTrader.Navigation
     public void OnClickNavigateTo(NavigableScreen navigableScreen)
     {
       _all.ForEach( (screen) => { screen.Close() ; } ) ;
+      if( navigableScreen.gameObject.TryGetComponent<ItemListingWidget>( out ItemListingWidget itemListingWidget ) )
+      {
+        NavigationEvents.UpdateItemListing.Invoke( itemListingWidget ) ;
+      }
       navigableScreen.Open() ;
     }
 #endregion
@@ -75,6 +79,8 @@ namespace FarTrader.Navigation
         
     }
 
+
+#region Serializables
     [Serializable]
     private class NavScreens
     {
@@ -84,5 +90,6 @@ namespace FarTrader.Navigation
       public NavigableScreen inventoryScreen ;
       public NavigableScreen tradeScreen ;
     }
+#endregion
   }
 }
