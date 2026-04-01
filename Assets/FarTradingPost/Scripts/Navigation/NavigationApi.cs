@@ -41,6 +41,10 @@ namespace FarTrader.Navigation
       {
         NavigationEvents.UpdateItemListing.Invoke( itemListingWidget ) ;
       }
+      if( navigableScreen.gameObject.TryGetComponent<TraderListingWidget>( out TraderListingWidget traderListingWidget ) )
+      {
+        NavigationEvents.UpdateTraderListing.Invoke( traderListingWidget ) ;
+      }
       navigableScreen.Open() ;
     }
 #endregion

@@ -2,6 +2,7 @@ using System;
 using FarTrader.Marketplace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace FarTrader.Navigation
@@ -9,6 +10,7 @@ namespace FarTrader.Navigation
   public class ItemPlaque : MonoBehaviour
   {
 #region Fields
+    private UnityEvent<ItemPlaque> plaqueSelected ;
 #endregion
 
 
@@ -61,6 +63,10 @@ namespace FarTrader.Navigation
     private void ApplySelectionToPanel()
     {
       selectionInfo.backgroundPanel.color = IsSelected ? selectionInfo.selected : selectionInfo.unselected ;
+      if( IsSelected )
+      {
+        plaqueSelected.Invoke(this) ;
+      }
     }
 #endregion
 
@@ -70,20 +76,22 @@ namespace FarTrader.Navigation
     public void SetSumValue(int value)    => laeledValues.sumValue.SetNumberValue( value ) ;
     public void SetOwnedAvailLabel(string value)  => laeledValues.availOwned.SetLabelValue( value ) ;
     public void SetOwnedAvailValue(int value)     => laeledValues.availOwned.SetNumberValue( value ) ;
+    public void SetPlaqueSelected( UnityEvent<ItemPlaque> value ) => plaqueSelected = value ;
 #endregion
 
 
 #region Initialization
     public void InitializeFrom(MarketItem marketItem)
     {
-      labelName.text      = marketItem.Name ;
-      labelCategory.text  = marketItem.Category.Name ; // TODO: extract trade good name
-      SetUnitValue( marketItem.UnitValue ) ;
-      SetOwnedAvailLabel( marketItem.Owner.IsActivePlayer ? "Owned" : "Avail" ) ;
-      SetOwnedAvailValue( marketItem.Count ) ;
-      SetSumValue( marketItem.SumValue ) ;
+      this.MarketItem     = marketItem ;
+      labelName.text      = this.MarketItem.Name ;
+      labelCategory.text  = this.MarketItem.Category.Name ; // TODO: extract trade good name
+      SetUnitValue( this.MarketItem.UnitValue ) ;
+      SetOwnedAvailLabel( this.MarketItem.Owner.IsActivePlayer ? "Owned" : "Avail" ) ;
+      SetOwnedAvailValue( this.MarketItem.Count ) ;
+      SetSumValue( this.MarketItem.SumValue ) ;
       //trendIndicator.texture = [trendInfo] ;
-      itemIcon.texture = marketItem.Icon ;
+      itemIcon.texture = this.MarketItem.Icon ;
     }
 #endregion
 
@@ -91,7 +99,7 @@ namespace FarTrader.Navigation
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+      
     }
 
     // Update is called once per frame

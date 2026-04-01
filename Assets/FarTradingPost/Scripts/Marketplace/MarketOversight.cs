@@ -46,7 +46,7 @@ namespace FarTrader.Marketplace
     public void NewActor( ActorRowData data )
     {
       Actor actor = Instantiate( actorPrefab ).GetComponent<Actor>() ;
-      actor.InitializeFrom( data.id, data.name, GetCompanyById(data.id) ) ;
+      actor.InitializeFrom( data.id, data.name, GetCompanyById(data.id), data.human ) ;
       actor.GetComponent<RectTransform>().SetParent( actorRepository ) ;
       _actors.Add( actor ) ;
     }
@@ -80,7 +80,18 @@ namespace FarTrader.Marketplace
 #region Event Handlers
     public void OnUpdateItemListing( ItemListingWidget itemListingWidget )
     {
+      itemListingWidget.ItemListing.ClearItems() ;
       itemListingWidget.ItemListing.AddItems( GetActorInventory( GetActorById( itemListingWidget.Actor.Id ) ) ) ;
+    }
+
+    public void OnUpdateTraderListing( TraderListingWidget traderListingWidget )
+    {
+      traderListingWidget.TraderListing.ClearActors() ;
+      IEnumerable<Actor> actors = _actors.Where( a => traderListingWidget.SelectionConfig.MatchCriteria(a) ) ;
+      traderListingWidget.TraderListing.AddActors(
+        actors.Take( Math.Min( actors.Count(), traderListingWidget.SelectionConfig.Count ) )
+      ) ;
+      // TODO: proper actor selection
     }
 #endregion
 
