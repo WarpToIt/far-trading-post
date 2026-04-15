@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using System.Text;
 using FarTrader.Authentication;
 using FarTrader.Navigation;
@@ -44,6 +45,80 @@ namespace FarTrader.Marketplace
 #endregion
 
 
+#region Market Actions
+    public void OnMarketAction( MarketActionContext ctx )
+    {
+      switch( ctx.Verb )
+      {
+        case MarketActions.Invalid:
+        case MarketActions.None:
+          Debug.Log($"Something went wrong!") ;
+          break ;
+        case MarketActions.Discard:
+          OnMarketActionDiscard( ctx ) ;
+          break ;
+        case MarketActions.Sell:
+          OnMarketActionSell( ctx ) ;
+          break ;
+        case MarketActions.Buy:
+          OnMarketActionBuy( ctx ) ;
+          break ;
+        default:
+          Debug.Log($"Something went wrong!") ;
+          break ;
+      }
+    }
+
+    private void OnMarketActionDiscard( MarketActionContext ctx )
+    {
+      StartCoroutine( Remove( _user.Id, _user.Token.Key, ctx.Item.Uid, ctx.Count,
+      (response) => {
+          if( !response.OK )
+            throw new Exception( $"Errors: {String.Join( ", ", response.Errors)}" ) ;
+        } )
+      ) ; // remove item(s)
+
+      // make local changes to item
+    }
+    
+    private void OnMarketActionSell( MarketActionContext ctx )
+    {
+      // TODO: check request validity
+      // - owner of item is NOT the buyer
+      // - buyer has sufficient currency in their inventory
+
+      // TODO: transfer currency to the seller
+
+      StartCoroutine( Transfer( _user.Id, _user.Token.Key, ctx.Actor.Id, ctx.Item.Uid, ctx.Count,
+      (response) => {
+          if( !response.OK )
+            throw new Exception( $"Errors: {String.Join( ", ", response.Errors)}" ) ;
+        } )
+      ) ; // transfer item(s) to new owner
+
+      // make local changes to currency and item ownership
+    }
+
+    private void OnMarketActionBuy( MarketActionContext ctx )
+    {
+      // TODO: check request validity
+      // - owner of item is NOT the buyer
+      // - buyer has sufficient currency in their inventory
+
+      // TODO: transfer currency to the seller
+
+      StartCoroutine( Transfer( _user.Id, _user.Token.Key, _user.Id, ctx.Item.Uid, ctx.Count,
+      (response) => {
+          if( !response.OK )
+            throw new Exception( $"Errors: {String.Join( ", ", response.Errors)}" ) ;
+        } )
+      ) ; // transfer item(s) to new owner
+
+      // make local changes to currency and item ownership
+    }
+#endregion
+
+
 #region API Actions
     public IEnumerator Context(int id, string token, Action<ContextResponse> onResult)
     {
@@ -71,32 +146,45 @@ namespace FarTrader.Marketplace
       ) ;
     }
 
-    public IEnumerator Give(int id, string token, int uid, int count, int want, Action<object> onResult)
+    public IEnumerator Give(int id, string token, int uid, int count, int want, Action<BasicResponse> onResult)
     {
       yield return null ;
+     
       onResult?.Invoke(default) ;
       throw new NotImplementedException( $"POST {endpoints.give}" ) ;
     }
 
-    public IEnumerator Edit(int id, string token, int uid, int count, int want, Action<object> onResult)
+    public IEnumerator Edit(int id, string token, int uid, int count, int want, Action<BasicResponse> onResult)
     {
       yield return null ;
       onResult?.Invoke(default) ;
       throw new NotImplementedException( $"PUT {endpoints.edit}" ) ;
     }
 
-    public IEnumerator Transfer(int id, int target_id, string token, int uid, int count, Action<object> onResult)
+    public IEnumerator Transfer(int id, string token, int target_id, int uid, int count, Action<TransferResponse> onResult)
     {
-      yield return null ;
-      onResult?.Invoke(default) ;
-      throw new NotImplementedException( $"PUT {endpoints.transfer}" ) ;
+      yield return StartCoroutine(
+        RequestDispatcher.Dispatch(
+          RequestType.PUT,
+          $"http://{server.Host}:{server.Port}{endpoints.transfer}",
+          new string[] { id.ToString(), uid.ToString(), count.ToString(), target_id.ToString(), token } ,
+          Encoding.UTF8.GetBytes( $"{{ }}" ),
+          (s) => { onResult?.Invoke( new TransferResponse( JsonUtility.FromJson<TransferResponse.RawTransferResponse>(s) ) ) ; }
+        )
+      ) ;
     }
 
-    public IEnumerator Remove(int id, string token, int uid, int count, Action<object> onResult)
+    public IEnumerator Remove(int id, string token, int uid, int count, Action<BasicResponse> onResult)
     {
-      yield return null ;
-      onResult?.Invoke(default) ;
-      throw new NotImplementedException( $"DELETE {endpoints.remove}" ) ;
+      yield return StartCoroutine(
+        RequestDispatcher.Dispatch(
+          RequestType.DELETE,
+          $"http://{server.Host}:{server.Port}{endpoints.remove}",
+          new string[] { id.ToString(), uid.ToString(), count.ToString(), token } ,
+          Encoding.UTF8.GetBytes( $"{{ }}" ),
+          (s) => { onResult?.Invoke( new BasicResponse( JsonUtility.FromJson<BasicResponse.RawBasicResponse>(s) ) ) ; }
+        )
+      ) ;
     }
 #endregion
 
@@ -122,8 +210,8 @@ namespace FarTrader.Marketplace
       public string list = "/inventory/{id}/{token}" ;
       public string give = "/inventory/{id}/{token}" ;
       public string edit = "/inventory/{id}/{token}" ;
-      public string transfer = "/inventory/{id}/{target_id}/{token}" ;
-      public string remove = "/inventory/{id}/{token}" ;
+      public string transfer = "/inventory/{id}/{uid}/{count}/{target_id}/{token}" ;
+      public string remove = "/inventory/{id}/{uid}/{count}/{token}" ;
     }
 #endregion
   }

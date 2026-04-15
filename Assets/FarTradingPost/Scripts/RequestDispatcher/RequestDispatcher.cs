@@ -10,7 +10,7 @@ namespace FarTrader.Request
   {
     private static RequestDispatcher _instance ;
 
-    private static Regex _paramPattern = new (@"{[a-zA-Z]+}") ;
+    private static Regex _paramPattern = new (@"{[a-zA-Z_]+}") ;
 
     public static IEnumerator Dispatch( RequestType requestType, string uri, string[] uriParams, byte[] data, Action<string> onResult ) =>
       _instance.SendHttpRequest( requestType, uri, uriParams, data, onResult ) ;

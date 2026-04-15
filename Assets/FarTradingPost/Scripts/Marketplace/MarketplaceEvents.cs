@@ -12,6 +12,7 @@ namespace FarTrader.Marketplace
     [SerializeField] private UnityEvent<ContextResponse> contextReceived ;
     [SerializeField] private UnityEvent<ListResponse> inventoryReceived ;
     [SerializeField] private UnityEvent<Actor> contextLoaded ;
+    [SerializeField] private UnityEvent<MarketActionContext> marketAction ;
 #endregion
 
 
@@ -19,6 +20,7 @@ namespace FarTrader.Marketplace
     public static UnityEvent<ContextResponse> ContextReceived => _instance.contextReceived ;
     public static UnityEvent<ListResponse> InventoryReceived => _instance.inventoryReceived ;
     public static UnityEvent<Actor> ContextLoaded => _instance.contextLoaded ;
+    public static UnityEvent<MarketActionContext> MarketAction => _instance.marketAction ;
 #endregion
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

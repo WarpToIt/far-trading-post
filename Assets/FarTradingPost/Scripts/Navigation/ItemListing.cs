@@ -74,6 +74,7 @@ namespace FarTrader.Navigation
       ItemPlaque item = content.First((p)=>p.IsSelected) ;
       // item.MarketItem is Null for some reason? 
       Debug.Log($"Make {item.MarketItem.Name} go kaboom!") ;
+      MarketplaceEvents.MarketAction.Invoke( new MarketActionContext( MarketActions.Discard, item.MarketItem ) ) ;
     }
 
     public void OnClickBuy()
@@ -81,6 +82,7 @@ namespace FarTrader.Navigation
       ItemPlaque item = content.First((p)=>p.IsSelected) ;
       // item.MarketItem is Null for some reason? 
       Debug.Log($"Buy {item.MarketItem.Name} from its owner!") ;
+      MarketplaceEvents.MarketAction.Invoke( new MarketActionContext( MarketActions.Buy, item.MarketItem ) ) ;
     }
 
     public void OnClickSell()
@@ -88,6 +90,7 @@ namespace FarTrader.Navigation
       ItemPlaque item = content.First((p)=>p.IsSelected) ;
       // item.MarketItem is Null for some reason? 
       Debug.Log($"Sell {item.MarketItem.Name} to a new owner!") ;
+      MarketplaceEvents.MarketAction.Invoke( new MarketActionContext( MarketActions.Sell, item.MarketItem ) ) ;
     }
 #endregion
 

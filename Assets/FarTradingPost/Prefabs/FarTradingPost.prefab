@@ -274,6 +274,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  marketAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5218842053194201483}
+        m_TargetAssemblyTypeName: FarTrader.Marketplace.MarketplaceApi, Assembly-CSharp
+        m_MethodName: OnMarketAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2404627758116167552
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,8 +504,8 @@ MonoBehaviour:
     list: /inventory/{id}/{token}
     give: /inventory/{id}/{token}
     edit: /inventory/{id}/{token}
-    transfer: /inventory/{id}/{target_id}/{token}
-    remove: /inventory/{id}/{token}
+    transfer: /inventory/{id}/{uid}/{count}/{target_id}/{token}
+    remove: /inventory/{id}/{uid}/{count}/{token}
   marketOversight: {fileID: 4316688916442922702}
 --- !u!114 &7262263001450895197
 MonoBehaviour:
@@ -747,7 +762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 781703247361910768, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00006239059
+      value: 0.00023472568
       objectReference: {fileID: 0}
     - target: {fileID: 2655362729180316384, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2369,7 +2384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6440678445975070291, guid: 537f6e4892011854e8739eb598328626, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00006239059
+      value: 0.00023472568
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -19,6 +19,12 @@ const register = ( app, conn ) => {
       }
       /** End */
 
+      // IF target already owns an item with the prototype id of this item
+      // THEN update the count of the item
+      // ELSE give the target a new item with the appropriate count
+      
+      // FINALLY isolate and return the uid of the destination item of the transfer
+
       let resBody = {
         "uid": 456789,
         "errors": [ ]

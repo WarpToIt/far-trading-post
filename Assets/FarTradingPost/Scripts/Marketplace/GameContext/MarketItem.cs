@@ -27,6 +27,7 @@ namespace FarTrader.Marketplace
     public Actor Owner => owner ;
     public string Name => itemPrototype.Name ;
     public ItemCategory Category => itemPrototype.Category ;
+    public int Uid => uid ;
     public int UnitValue => itemPrototype.UnitValue ;
     public int Count => count ;
     public float Want => want ;
