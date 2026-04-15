@@ -21,6 +21,7 @@ namespace FarTrader.Navigation
 
 
 #region Properties
+    public TraderPlaque Selected => content.First((p)=>p.IsSelected) ;
 #endregion
 
 
@@ -33,9 +34,9 @@ namespace FarTrader.Navigation
       }
     }
 
-    public void AddActors( IEnumerable<Actor> items )
+    public void AddActors( IEnumerable<Actor> actors )
     {
-      foreach( Actor actor in items)
+      foreach( Actor actor in actors)
       {
         AddActor( actor ) ;
       }
@@ -69,11 +70,11 @@ namespace FarTrader.Navigation
       }
     }
 
-    public void OnClickDiscard()
+    public void OnClickTrade()
     {
-      TraderPlaque item = content.First((p)=>p.IsSelected) ;
-      // item.MarketItem is Null for some reason? 
-      Debug.Log($"Make {item.Actor.Name} go kaboom!") ;
+      TraderPlaque traderPlaque = content.First((p)=>p.IsSelected) ;
+      // item.TraderPlaque is Null for some reason? 
+      Debug.Log($"Initiate trade with {traderPlaque.Actor.Name}!") ;
     }
 #endregion
 

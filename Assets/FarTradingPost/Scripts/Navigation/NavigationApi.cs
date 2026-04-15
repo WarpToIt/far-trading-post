@@ -37,14 +37,6 @@ namespace FarTrader.Navigation
     public void OnClickNavigateTo(NavigableScreen navigableScreen)
     {
       _all.ForEach( (screen) => { screen.Close() ; } ) ;
-      if( navigableScreen.gameObject.TryGetComponent<ItemListingWidget>( out ItemListingWidget itemListingWidget ) )
-      {
-        NavigationEvents.UpdateItemListing.Invoke( itemListingWidget ) ;
-      }
-      if( navigableScreen.gameObject.TryGetComponent<TraderListingWidget>( out TraderListingWidget traderListingWidget ) )
-      {
-        NavigationEvents.UpdateTraderListing.Invoke( traderListingWidget ) ;
-      }
       navigableScreen.Open() ;
     }
 #endregion

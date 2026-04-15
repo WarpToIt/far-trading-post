@@ -19,7 +19,8 @@ namespace FarTrader.Marketplace
 #region Initialization
     internal void InitializeFrom( CompanyRowData data )
     {
-      // TODO: value assignment
+      Id   = data.id ;
+      Name = data.name ;
     }
 #endregion
 

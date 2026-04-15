@@ -58,7 +58,7 @@ const register = ( app, conn ) => {
         if( results.length > 0 )
         {
           results.forEach( result => {
-            resBody.actors.push( {
+            resBody.companies.push( {
               "id": result.id,
               "name": result.name
             } ) ;

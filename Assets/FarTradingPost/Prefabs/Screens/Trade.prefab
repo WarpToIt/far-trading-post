@@ -394,7 +394,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 962983767592143885}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2591286920295297696}
+        m_TargetAssemblyTypeName: FarTrader.Navigation.ItemListing, Assembly-CSharp
+        m_MethodName: OnClickSell
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2788397374187148552
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,7 +714,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1656180214224331686}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2591286920295297696}
+        m_TargetAssemblyTypeName: FarTrader.Navigation.ItemListing, Assembly-CSharp
+        m_MethodName: OnClickBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5458226202625016695
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2356261338679138620}
   - component: {fileID: 4185116520433055361}
+  - component: {fileID: 4924497531018931110}
   m_Layer: 5
   m_Name: Trade
   m_TagString: Untagged
@@ -791,6 +816,20 @@ MonoBehaviour:
   hasSidePanel: 0
   sidePanel: {fileID: 0}
   isVisible: 0
+--- !u!114 &4924497531018931110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5486505914283103168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec15be9d58d30c2449a6ce8d98170f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarTrader.Navigation.ItemListingWidget
+  actorSelector: {fileID: 0}
+  itemListing: {fileID: 2591286920295297696}
 --- !u!1 &6851542987827026251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,7 +1260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8809278463106792181, guid: d9d6baad56c104c448d832377c502dc2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0009643473
+      value: 0.000040810777
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1441306560281648085, guid: d9d6baad56c104c448d832377c502dc2, type: 3}
@@ -1234,3 +1273,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2698255602731447869, guid: d9d6baad56c104c448d832377c502dc2, type: 3}
   m_PrefabInstance: {fileID: 2531369313460378790}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2591286920295297696 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 60555891190033926, guid: d9d6baad56c104c448d832377c502dc2, type: 3}
+  m_PrefabInstance: {fileID: 2531369313460378790}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 673641aebdda19744a168e5a80610b43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemListing

@@ -26,7 +26,16 @@ namespace FarTrader.Navigation
 #region API Actions
     public void Open()
     {
-      // apply/update values
+      if( TryGetComponent<ItemListingWidget>( out ItemListingWidget itemListingWidget ) )
+      {
+        NavigationEvents.UpdateItemListing.Invoke( itemListingWidget ) ;
+      }
+
+      if( TryGetComponent<TraderListingWidget>( out TraderListingWidget traderListingWidget ) )
+      {
+        NavigationEvents.UpdateTraderListing.Invoke( traderListingWidget ) ;
+      }
+      
       Show() ;
     }
 

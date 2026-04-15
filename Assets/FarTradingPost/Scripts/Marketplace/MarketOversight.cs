@@ -46,7 +46,7 @@ namespace FarTrader.Marketplace
     public void NewActor( ActorRowData data )
     {
       Actor actor = Instantiate( actorPrefab ).GetComponent<Actor>() ;
-      actor.InitializeFrom( data.id, data.name, GetCompanyById(data.id), data.human ) ;
+      actor.InitializeFrom( data.id, data.name, GetCompanyById(data.company), data.human ) ;
       actor.GetComponent<RectTransform>().SetParent( actorRepository ) ;
       _actors.Add( actor ) ;
     }
@@ -99,8 +99,6 @@ namespace FarTrader.Marketplace
 #region Initialization
     public void OnContextReceived( ContextResponse context )
     {
-      Debug.Log( context ) ;
-
       foreach( CompanyRowData row in context.Companies )
       {
         NewCompany( row ) ;

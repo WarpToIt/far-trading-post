@@ -157,6 +157,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  updateTraderListing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4316688916442922702}
+        m_TargetAssemblyTypeName: FarTrader.Marketplace.MarketOversight, Assembly-CSharp
+        m_MethodName: OnUpdateTraderListing
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   unlockOkDialog:
     m_PersistentCalls:
       m_Calls:
@@ -177,7 +192,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 163386464857758191}
         m_TargetAssemblyTypeName: FarTrader.Navigation.NavigableScreen, Assembly-CSharp
-        m_MethodName: Show
+        m_MethodName: Open
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -453,7 +468,7 @@ MonoBehaviour:
     registrationScreen: {fileID: 7556990502601434251}
     overviewScreen: {fileID: 163386464857758191}
     inventoryScreen: {fileID: 7419446524804963388}
-    tradeScreen: {fileID: 0}
+    tradeScreen: {fileID: 6123807357286738665}
 --- !u!114 &5218842053194201483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,7 +747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 781703247361910768, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00095635006
+      value: -0.00006239059
       objectReference: {fileID: 0}
     - target: {fileID: 2655362729180316384, guid: e4fbf1b3e431e66409c1e31ce6154cda, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1464,6 +1479,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 535396793912573259, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 535396793912573259, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 535396793912573259, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 80529045963864762}
+    - target: {fileID: 535396793912573259, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 535396793912573259, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickNavigateTo
+      objectReference: {fileID: 0}
+    - target: {fileID: 535396793912573259, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FarTrader.Navigation.NavigationApi, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 535396793912573259, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6123807357286738665}
+    - target: {fileID: 535396793912573259, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: FarTrader.Navigation.NavigableScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1115076345617258719, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1510,11 +1557,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5105287810609925610, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0009552103
+      value: -0.000031562933
       objectReference: {fileID: 0}
     - target: {fileID: 5402458857446144900, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
       propertyPath: m_Name
       value: Overview
+      objectReference: {fileID: 0}
+    - target: {fileID: 5625348333527742080, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5625348333527742080, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7850407737249294499, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
       propertyPath: m_Pivot.x
@@ -1660,6 +1715,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5105287810609925610, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
   m_PrefabInstance: {fileID: 3976152886496408523}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8439979307951490027 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4760011843833671712, guid: 86a91a7cda309974b861bebbd81a6c8e, type: 3}
+  m_PrefabInstance: {fileID: 3976152886496408523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03227e03a2cd43e46ba1079b14b1e2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarTrader.Navigation.SelectorActorFromSelection
 --- !u!1001 &5431397271098040122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2113,6 +2179,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5352876910538997584}
     m_Modifications:
+    - target: {fileID: 428364696432926747, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 773570327486287046, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 773570327486287046, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 773570327486287046, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5557088636847599304}
+    - target: {fileID: 773570327486287046, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 773570327486287046, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickBuy
+      objectReference: {fileID: 0}
+    - target: {fileID: 773570327486287046, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FarTrader.Navigation.ItemListing, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 773570327486287046, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2356261338679138620, guid: 537f6e4892011854e8739eb598328626, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2201,24 +2299,110 @@ PrefabInstance:
       propertyPath: hasSidePanel
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4924497531018931110, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: actorSelector
+      value: 
+      objectReference: {fileID: 8439979307951490027}
     - target: {fileID: 5486505914283103168, guid: 537f6e4892011854e8739eb598328626, type: 3}
       propertyPath: m_Name
       value: Trade
       objectReference: {fileID: 0}
+    - target: {fileID: 5569206708103793519, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569206708103793519, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569206708103793519, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5557088636847599304}
+    - target: {fileID: 5569206708103793519, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569206708103793519, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickSell
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569206708103793519, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FarTrader.Navigation.ItemListing, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569206708103793519, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232819866014927571, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232819866014927571, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232819866014927571, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 80529045963864762}
+    - target: {fileID: 6232819866014927571, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232819866014927571, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickNavigateTo
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232819866014927571, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FarTrader.Navigation.NavigationApi, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232819866014927571, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 163386464857758191}
+    - target: {fileID: 6232819866014927571, guid: 537f6e4892011854e8739eb598328626, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: FarTrader.Navigation.NavigableScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6440678445975070291, guid: 537f6e4892011854e8739eb598328626, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00095635006
+      value: -0.00006239059
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 537f6e4892011854e8739eb598328626, type: 3}
+--- !u!114 &5557088636847599304 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2591286920295297696, guid: 537f6e4892011854e8739eb598328626, type: 3}
+  m_PrefabInstance: {fileID: 7991821250156043368}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 673641aebdda19744a168e5a80610b43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemListing
 --- !u!224 &5646309012833879380 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2356261338679138620, guid: 537f6e4892011854e8739eb598328626, type: 3}
   m_PrefabInstance: {fileID: 7991821250156043368}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6123807357286738665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4185116520433055361, guid: 537f6e4892011854e8739eb598328626, type: 3}
+  m_PrefabInstance: {fileID: 7991821250156043368}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276542658f74b4b4e9f7279981797949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarTrader.Navigation.NavigableScreen
 --- !u!1001 &8244298355746337503
 PrefabInstance:
   m_ObjectHideFlags: 0
