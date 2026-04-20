@@ -74,6 +74,7 @@ namespace FarTrader.Marketplace
       timestamp = _timestamps.FirstOrDefault( (e) => e.Id == id ) ;
       return timestamp != default ;
     }
+    public MarketItem GetActorLiquidity( Actor actor ) => _marketItems.First( (mItem) => mItem.Owner == actor && mItem.Category.Name == "currency" ) ;
 #endregion
 
 

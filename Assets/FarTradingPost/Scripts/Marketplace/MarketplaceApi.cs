@@ -85,20 +85,47 @@ namespace FarTrader.Marketplace
     
     private void OnMarketActionSell( MarketActionContext ctx )
     {
-      // TODO: check request validity
-      // - owner of item is NOT the buyer
-      // - buyer has sufficient currency in their inventory
+      MarketItem buyerItem = ctx.Item ;
+      MarketItem sellerItem = marketOversight.GetActorInventory( _user.Actor ).FirstOrDefault( (mItem) => mItem.ItemPrototype == buyerItem.ItemPrototype ) ;
+      int transactionValue = buyerItem.UnitValue * ctx.Count ;
+      MarketItem buyerCurrency  = marketOversight.GetActorLiquidity( buyerItem.Owner ) ;
+      MarketItem sellerCurrency = marketOversight.GetActorLiquidity( _user.Actor ) ;
 
-      // TODO: transfer currency to the seller
+      if( sellerItem == default )
+        throw new Exception( $"Actor {_user.Actor.Name} doesn't own any {buyerItem.Name} to sell." ) ;
 
-      StartCoroutine( Transfer( _user.Id, _user.Token.Key, ctx.Actor.Id, ctx.Item.Uid, ctx.Count,
+      if( sellerItem.Count < ctx.Count )
+        throw new Exception( $"Actor {_user.Actor.Name} doesn't own enough {sellerItem.Name} to sell. Has {sellerItem.Count}; needs {ctx.Count}." ) ;
+
+      if( _user.Actor == buyerItem.Owner )
+        throw new Exception( $"Actor {_user.Actor.Name} can't sell {buyerItem.Name} to themself." ) ;
+
+      if( buyerCurrency.SumValue < transactionValue )
+        throw new Exception( $"Actor {buyerItem.Owner.Name} lacks the funds to purchase {buyerItem.Name} from {_user.Actor.Name}." ) ;
+
+
+      StartCoroutine( Transfer( _user.Id, _user.Token.Key, sellerCurrency.Owner.Id, buyerCurrency.Uid, transactionValue,
+      (response) => {
+          if( !response.OK )
+            throw new Exception( $"Errors: {String.Join( ", ", response.Errors)}" ) ;
+        } )
+      ) ; // transfer currency(s) to new owner
+
+      StartCoroutine( Transfer( _user.Id, _user.Token.Key, buyerItem.Owner.Id, sellerItem.Uid, ctx.Count,
       (response) => {
           if( !response.OK )
             throw new Exception( $"Errors: {String.Join( ", ", response.Errors)}" ) ;
         } )
       ) ; // transfer item(s) to new owner
 
+      // if api/database actions cleared successfully
       // make local changes to currency and item ownership
+
+      buyerCurrency.Remove( transactionValue ) ;
+      sellerCurrency.Add( transactionValue ) ;
+
+      buyerItem.Add( ctx.Count ) ;
+      sellerItem.Remove( ctx.Count ) ;
     }
 
     private void OnMarketActionBuy( MarketActionContext ctx )

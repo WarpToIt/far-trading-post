@@ -34,6 +34,7 @@ namespace FarTrader.Marketplace
     public int Count => count ;
     public float Want => want ;
     public int SumValue => UnitValue * Count ;
+    public ItemPrototype ItemPrototype => itemPrototype ; 
     public Texture2D Icon => icon ;
     public UnityEvent ItemUpdate => itemUpdate ;
 #endregion
@@ -43,6 +44,12 @@ namespace FarTrader.Marketplace
     public void TransferOwnership( Actor target )
     {
       owner = target ;
+    }
+
+    public void Add( int count )
+    {
+      this.count += count ;
+      ItemUpdate.Invoke() ;
     }
 
     public void Remove( int count )
