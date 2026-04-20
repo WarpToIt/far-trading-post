@@ -78,7 +78,9 @@ namespace FarTrader.Marketplace
         } )
       ) ; // remove item(s)
 
-      // make local changes to item
+      ctx.Item.Remove( ctx.Count ) ;
+
+      // safeguard item count >= 0 ?
     }
     
     private void OnMarketActionSell( MarketActionContext ctx )

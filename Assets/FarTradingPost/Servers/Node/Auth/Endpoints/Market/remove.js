@@ -37,7 +37,7 @@ const register = ( app, conn, marketURL ) => {
 
       /** Forward Request to Market */
       await fetch(
-        `${marketURL}/inventory/${request.params.id}/${request.params.uid}/${request.params.count}`,
+        `${marketURL}/inventory/${request.params.uid}/${request.params.count}`,
         { method: 'DELETE' }
       ).then(
         (marketResponse) => marketResponse.json()

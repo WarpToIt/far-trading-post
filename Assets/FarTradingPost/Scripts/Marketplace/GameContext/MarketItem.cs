@@ -1,5 +1,6 @@
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace FarTrader.Marketplace
@@ -8,6 +9,7 @@ namespace FarTrader.Marketplace
   {
 #region Fields
     private ItemPrototype itemPrototype ;
+    private UnityEvent itemUpdate ;
 #endregion
 
 
@@ -33,6 +35,7 @@ namespace FarTrader.Marketplace
     public float Want => want ;
     public int SumValue => UnitValue * Count ;
     public Texture2D Icon => icon ;
+    public UnityEvent ItemUpdate => itemUpdate ;
 #endregion
 
 
@@ -41,17 +44,24 @@ namespace FarTrader.Marketplace
     {
       owner = target ;
     }
+
+    public void Remove( int count )
+    {
+      this.count -= count ;
+      ItemUpdate.Invoke() ;
+    }
 #endregion
 
 
 #region Initialization
     public void InitializeFrom( Actor owner, ItemPrototype itemPrototype, int itemUid, int count, float want )
     {
-      this.owner  = owner ;
+      this.owner         = owner ;
       this.itemPrototype = itemPrototype ;
-      this.uid    = itemUid ;
-      this.count  = count ;
-      this.want   = want ;
+      this.uid           = itemUid ;
+      this.count         = count ;
+      this.want          = want ;
+      this.itemUpdate    = new UnityEvent() ;
       // TODO: value assignment
     }
 #endregion

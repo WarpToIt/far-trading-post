@@ -10,6 +10,7 @@ const error_codes = {
   "EMPTY_VALUE_TRENDS"      : 'M0105 no value trends found',
 
   "EMPTY_INVENTORY"         : 'M0201 no items found in this user\'s inventory',
+  "MISSING_INVENTORY_ITEM"  : 'M0202 no item matching UID found in this user\'s inventory',
 
   "SWR_REGISTER_ACTOR"      : 'MX101 something went wrong when attempting to register a new actor',
 } ;

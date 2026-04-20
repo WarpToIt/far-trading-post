@@ -32,6 +32,7 @@ namespace FarTrader.Navigation
 
 #region Event Handlers
     public void OnClick() => ToggleSelected() ;
+    public void OnItemUpdate() => UpdateAll() ;
 #endregion
 
 
@@ -77,21 +78,26 @@ namespace FarTrader.Navigation
     public void SetOwnedAvailLabel(string value)  => laeledValues.availOwned.SetLabelValue( value ) ;
     public void SetOwnedAvailValue(int value)     => laeledValues.availOwned.SetNumberValue( value ) ;
     public void SetPlaqueSelected( UnityEvent<ItemPlaque> value ) => plaqueSelected = value ;
-#endregion
 
-
-#region Initialization
-    public void InitializeFrom(MarketItem marketItem)
+    public void UpdateAll()
     {
-      this.MarketItem     = marketItem ;
       labelName.text      = this.MarketItem.Name ;
       labelCategory.text  = this.MarketItem.Category.Name ; // TODO: extract trade good name
       SetUnitValue( this.MarketItem.UnitValue ) ;
       SetOwnedAvailLabel( this.MarketItem.Owner.IsActivePlayer ? "Owned" : "Avail" ) ;
       SetOwnedAvailValue( this.MarketItem.Count ) ;
       SetSumValue( this.MarketItem.SumValue ) ;
-      //trendIndicator.texture = [trendInfo] ;
+    }
+#endregion
+
+
+#region Initialization
+    public void InitializeFrom(MarketItem marketItem)
+    {
+      this.MarketItem = marketItem ;
+      UpdateAll() ;
       itemIcon.texture = this.MarketItem.Icon ;
+      marketItem.ItemUpdate.AddListener( OnItemUpdate ) ;
     }
 #endregion
 
